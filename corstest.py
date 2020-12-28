@@ -20,6 +20,7 @@ def usage():
   parser.add_argument("-s", help="always force ssl/tls requests", action="store_true")
   parser.add_argument("-q", help="quiet, allow-credentials only", action="store_true")
   parser.add_argument("-v", help="produce a more verbose output", action="store_true")
+  parser.add_argument("-csv", help="print result in csv format(to store in file)", action="store_true")
   return parser.parse_args()
 
 # -------------------------------------------------------------------------------------------------
@@ -160,12 +161,47 @@ def sld(host):
 
 # -------------------------------------------------------------------------------------------------
 
-def error(url, msg): print("\x1b[2m{} - Error: {}\x1b[0m".format( url, msg))
-def alert(url, msg): print("\x1b[97;41m{} - Alert: {}\x1b[0m".format(url, msg))
-def invalid(url, msg): print("\x1b[30;43m{} - Invalid: {}\x1b[0m".format(url, msg))
-def warning(url, msg): print("\x1b[30;48;5;202m{} - Warning: {}\x1b[0m".format(url, msg))
-def notvuln(url, msg): print("\x1b[97;100m{} - Not vulnerable: {}\x1b[0m".format(url, msg))
-def info(url, msg): print("\x1b[30;42m{} - Access-Control-Allow-Origin: {}\x1b[0m".format(url, msg))
+def error(url, msg):
+    if(args.csv):
+        print("{},Error,{}".format( url, msg))
+    else:
+        print("\x1b[2m{} - Error: {}\x1b[0m".format( url, msg))
+
+
+def alert(url, msg):
+    if(args.csv):
+        print("{},Alert,{}".format(url, msg))
+    else:
+        print("\x1b[97;41m{} - Alert: {}\x1b[0m".format(url, msg))
+
+
+def invalid(url, msg):
+    if(args.csv):
+        print("{},Invalid,{}".format(url, msg))
+    else:
+        print("\x1b[30;43m{} - Invalid: {}\x1b[0m".format(url, msg))
+
+
+def warning(url, msg): 
+    if(args.csv):
+        print("{},Warning,{}".format(url, msg))
+    else:
+        print("\x1b[30;48;5;202m{} - Warning: {}\x1b[0m".format(url, msg))
+
+
+def notvuln(url, msg): 
+    if(args.csv):
+        print("{},Not vulnerable,{}".format(url, msg))
+    else:
+        print("\x1b[97;100m{} - Not vulnerable: {}\x1b[0m".format(url, msg))
+
+
+def info(url, msg):
+    if(args.csv):
+        print("{},Access-Control-Allow-Origin,{}".format(url, msg))
+    else:
+        print("\x1b[30;42m{} - Access-Control-Allow-Origin: {}\x1b[0m".format(url, msg))
+
 
 # -------------------------------------------------------------------------------------------------
 

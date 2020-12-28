@@ -19,7 +19,9 @@ Note that these vulnerabilities/misconfigurations are dependend on the context. 
 ### Usage
 
 ```
-usage: corstest.py [arguments] infile
+usage: corstest.py [-h] [-c name=value] [-p processes] [-s] [-q] [-v] [-csv] infile
+
+Simple CORS misconfigurations checker
 
 positional arguments:
   infile         File with domain or URL list
@@ -31,6 +33,8 @@ optional arguments:
   -s             always force ssl/tls requests
   -q             quiet, allow-credentials only
   -v             produce a more verbose output
+  -csv           print result in csv format(to store in file)
+
 ```
 
 ### Example
